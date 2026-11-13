@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRAGO — Rise Above Ordinary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{--black:#151711;--cream:#f5f3ed;--lime:#d4f36a;--grey:#77796f;--line:#deded5;--white:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--black);font-family:'DM Sans',sans-serif}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+img{max-width:100%}
+.hidden{display:none!important}
+.announcement{background:var(--lime);text-align:center;padding:10px;font-size:10px;font-weight:700;letter-spacing:2px}
+header{height:76px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;background:var(--cream);border-bottom:1px solid var(--line)}
+.logo img{width:125px;height:48px;object-fit:contain;display:block}
+nav{display:flex;gap:30px}
+nav a{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.header-right{display:flex;gap:17px;align-items:center}
+.header-right button{border:0;background:none;font-size:11px;font-weight:700}
+.cart-count{background:var(--black);color:white;padding:5px 8px;border-radius:50%}
+.menu-btn{display:none}
+.hero{padding:22px 5% 60px}
+.hero-content{height:590px;position:relative;overflow:hidden;display:flex;align-items:flex-end;color:white;background:#333}
+.hero-content>img{position:absolute;width:100%;height:100%;object-fit:cover;filter:brightness(.6)}
+.hero-content:after{content:"";position:absolute;inset:30% 0 0;background:linear-gradient(transparent,#000a)}
+.hero-text{position:relative;z-index:2;padding:7%}
+.eyebrow,.small-title{font-size:10px;font-weight:700;letter-spacing:3px}
+.hero h1{font:700 clamp(60px,9vw,110px)/.9 'Space Grotesk';letter-spacing:-7px;margin:25px 0}
+.hero p{font-size:14px;line-height:1.8;max-width:380px}
+.button{display:inline-block;background:var(--lime);color:var(--black);border:0;padding:15px 23px;margin-top:22px;font-size:11px;font-weight:700;letter-spacing:1px;transition:.2s}
+.button:hover{background:white;transform:translateY(-2px)}
+.ticker{background:var(--black);color:white;padding:18px;text-align:center;font:600 12px 'Space Grotesk';letter-spacing:3px}
+.ticker span{color:var(--lime);padding:0 15px}
+.section{padding:80px 6%}
+.section-heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:30px}
+.small-title{color:var(--grey)}
+h2{font:700 clamp(35px,5vw,58px) 'Space Grotesk';letter-spacing:-4px;margin-top:10px}
+.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:25px}
+.filter{padding:10px 18px;border:1px solid var(--line);border-radius:30px;background:none;font-size:11px;font-weight:700}
+.filter.active,.filter:hover{background:var(--black);color:white}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.product-card{cursor:pointer;min-width:0}
+.product-image{aspect-ratio:.78;position:relative;overflow:hidden;background:#e8e6df}
+.product-image img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.product-card:hover img{transform:scale(1.05)}
+.tag{position:absolute;top:12px;left:12px;background:var(--lime);padding:7px 10px;font-size:9px;font-weight:700}
+.add-btn{position:absolute;bottom:12px;left:12px;right:12px;padding:13px;border:0;background:var(--cream);font-size:10px;font-weight:700;letter-spacing:1px}
+.product-info{padding:13px 2px}
+.product-name{font:600 15px 'Space Grotesk'}
+.product-meta{display:flex;justify-content:space-between;margin-top:7px;font-size:12px;color:var(--grey)}
+.price{color:var(--black);font-weight:700}
+.story{display:grid;grid-template-columns:1fr 1fr;background:#dfe1d5}
+.story img{width:100%;height:100%;min-height:400px;object-fit:cover}
+.story-text{padding:12%;display:flex;flex-direction:column;justify-content:center}
+.story-text p{font-size:14px;line-height:1.9;color:#65675d;margin-top:18px}
+.benefits{display:grid;grid-template-columns:repeat(3,1fr);margin-top:60px;border-block:1px solid var(--line)}
+.benefit{padding:28px 20px;border-right:1px solid var(--line)}
+.benefit:last-child{border:0}
+.benefit h3{font:600 17px 'Space Grotesk'}
+.benefit p{font-size:12px;color:var(--grey);line-height:1.8;margin-top:10px}
+.newsletter{background:var(--lime);padding:60px 6%;display:flex;justify-content:space-between;align-items:center;gap:25px}
+.newsletter h2{font-size:45px}
+.signup{display:flex;border-bottom:1px solid;width:min(420px,100%)}
+.signup input{flex:1;min-width:0;background:none;border:0;padding:15px;outline:0}
+.signup button{background:none;border:0;font-size:11px;font-weight:700}
+footer{background:var(--black);color:white;padding:55px 6% 25px}
+.footer-top{display:flex;justify-content:space-between;gap:30px;padding-bottom:45px}
+.footer-brand p{font-size:12px;color:#999;max-width:250px;line-height:1.8;margin-top:12px}
+.footer-links{display:flex;gap:60px}
+.footer-links div{display:grid;gap:13px}
+.footer-links b{font-size:10px;letter-spacing:2px;color:#999}
+.footer-links a{font-size:12px}
+.footer-bottom{border-top:1px solid #393b34;padding-top:20px;display:flex;justify-content:space-between;color:#999;font-size:10px}
+.modal{position:fixed;inset:0;background:#0009;z-index:60;display:none;align-items:center;justify-content:center;padding:15px}
+.modal.open{display:flex}
+.modal-box{background:var(--cream);width:min(470px,100%);max-height:90vh;overflow:auto;padding:28px;position:relative}
+.modal-box.wide{width:min(850px,100%)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.modal-head h3{font:700 25px 'Space Grotesk'}
+.close{border:0;background:none;font-size:27px}
+.field{margin-bottom:15px}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;padding:13px;border:1px solid var(--line);background:white;outline:none;font-size:13px}
+.field textarea{resize:vertical;min-height:85px}
+.full{width:100%;text-align:center}
+.note{font-size:11px;color:var(--grey);line-height:1.7;margin-top:13px}
+.demo-code{background:#e6e9d9;padding:12px;text-align:center;font-weight:700;letter-spacing:3px;margin:15px 0}
+.error{color:#b52c2c;font-size:12px;margin-top:8px}
+.profile-info{background:#e9eadf;padding:20px;margin-bottom:20px}
+.profile-info h3{font:600 22px 'Space Grotesk'}
+.profile-info p{font-size:12px;color:var(--grey);margin-top:5px}
+.order-card{border:1px solid var(--line);padding:15px;margin:12px 0}
+.order-card h4{font:600 14px 'Space Grotesk'}
+.order-card p{font-size:12px;color:var(--grey);margin-top:6px;line-height:1.6;overflow-wrap:anywhere}
+.status{display:inline-block;background:#e3edc9;padding:5px 9px;font-size:10px;font-weight:700;margin-top:8px}
+.detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:25px}
+.detail-layout img{width:100%;height:420px;object-fit:cover;background:#e5e4dd}
+.detail-info h2{font-size:35px;line-height:1.1}
+.detail-info .price{font-size:22px;display:block;margin:15px 0}
+.detail-info p{font-size:13px;line-height:1.8;color:var(--grey)}
+.size-options{display:flex;gap:9px;margin:15px 0}
+.size-btn{padding:10px 15px;background:none;border:1px solid var(--line)}
+.size-btn.active{background:var(--black);color:white}
+.cart-drawer{position:fixed;inset:0;z-index:70;display:none}
+.cart-drawer.open{display:block}
+.overlay{position:absolute;inset:0;background:#0008}
+.cart-panel{position:absolute;right:0;top:0;height:100%;width:min(420px,100%);background:var(--cream);padding:25px;display:flex;flex-direction:column}
+.cart-header{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:15px}
+.cart-items{flex:1;overflow:auto;padding:15px 0}
+.cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.cart-item img{width:70px;height:85px;object-fit:cover}
+.cart-item b{font-size:12px}
+.cart-item small{display:block;margin-top:6px;color:var(--grey)}
+.remove{background:none;border:0;text-decoration:underline;font-size:11px}
+.cart-total{border-top:1px solid var(--line);padding-top:18px}
+.total-line{display:flex;justify-content:space-between;font-weight:700;margin-bottom:15px}
+.empty{text-align:center;color:var(--grey);padding:40px 10px;font-size:13px}
+.admin-layout{display:grid;grid-template-columns:210px 1fr;gap:25px}
+.admin-sidebar{background:var(--black);color:white;padding:18px;align-self:start}
+.admin-sidebar button{display:block;width:100%;padding:12px 8px;background:none;color:white;border:0;text-align:left;font-size:11px}
+.admin-sidebar button.active{background:#34382d;color:var(--lime)}
+.admin-content{min-width:0}
+.admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.stat{background:#e9eadf;padding:18px}
+.stat small{font-size:10px;color:var(--grey)}
+.stat h3{font:700 27px 'Space Grotesk';margin-top:8px}
+.admin-table{width:100%;border-collapse:collapse;font-size:12px}
+.admin-table th,.admin-table td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}
+.admin-table th{color:var(--grey);font-size:10px}
+.admin-table img{width:42px;height:48px;object-fit:cover;vertical-align:middle}
+.action{border:0;background:none;text-decoration:underline;font-size:11px;margin-right:9px}
+.primary{background:var(--black);color:white;border:0;padding:12px 18px;font-size:11px;font-weight:700}
+.danger{color:#b52c2c}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--black);color:white;padding:14px 22px;font-size:12px;opacity:0;transition:.3s;z-index:100;pointer-events:none}
+.toast.show{opacity:1}
+.upload-box{border:1px dashed #a6a89b;background:#eeeee7;padding:20px;text-align:center}
+.upload-box input{background:white;padding:10px;width:100%;font-size:12px}
+.upload-preview{width:150px;height:180px;object-fit:cover;display:block;margin:15px auto 8px;background:#e5e4dd}
+.upload-help{font-size:10px;color:var(--grey);margin-top:8px}
+#adminModal{padding:0;background:var(--cream);align-items:stretch;justify-content:stretch}
+#adminModal .modal-box.wide{width:100%;max-width:none;height:100vh;max-height:none;padding:25px 4%;overflow-y:auto;display:flex;flex-direction:column}
+#adminModal .modal-head{position:sticky;top:-25px;z-index:5;background:var(--cream);padding:15px 0;border-bottom:1px solid var(--line)}
+#adminModal .admin-layout{flex:1;min-height:0;grid-template-columns:210px minmax(0,1fr)}
+#adminModal .admin-sidebar{position:sticky;top:75px}
+#adminModal .admin-content{padding:10px 0}
+#adminModal .admin-table{min-width:600px}
+.checkout-summary{background:#e9eadf;padding:15px;margin:15px 0}
+.checkout-summary p{font-size:12px;margin:7px 0;line-height:1.6;overflow-wrap:anywhere}
+.payment-option{display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:16px;margin:12px 0;cursor:pointer;background:white}
+.payment-option:has(input:checked){border-color:var(--black);background:#e9eadf}
+.payment-option input{accent-color:var(--black)}
+.payment-option strong{font-size:13px}
+.payment-option small{display:block;color:var(--grey);font-size:11px;margin-top:4px}
+.success-icon{width:65px;height:65px;border-radius:50%;background:var(--lime);display:grid;place-items:center;font-size:32px;margin:10px auto 20px}
+.success-content{text-align:center}
+.success-content h2{font-size:32px;letter-spacing:-2px}
+.success-content>p{font-size:13px;color:var(--grey);line-height:1.8;margin-top:10px}
+.address-text{background:#e9eadf;padding:13px;font-size:12px;line-height:1.8;margin-top:12px;overflow-wrap:anywhere}
+@media(max-width:850px){
+.products{grid-template-columns:repeat(2,1fr)}
+.story{grid-template-columns:1fr}
+.story img{height:330px;min-height:0}
+.detail-layout{grid-template-columns:1fr}
+.detail-layout img{height:330px}
+}
+@media(max-width:600px){
+header{height:65px;padding:0 4%}
+.logo img{width:95px}
+nav{display:none;position:absolute;top:65px;left:0;right:0;background:var(--cream);padding:22px;flex-direction:column}
+nav.open{display:flex}
+.menu-btn{display:block}
+.header-right{gap:10px}
+.hero{padding:12px 3% 40px}
+.hero-content{height:530px}
+.hero h1{font-size:62px;letter-spacing:-5px}
+.section{padding:55px 5%}
+.section-heading{align-items:start;flex-direction:column;gap:15px}
+.products{gap:20px 12px}
+.product-name{font-size:13px}
+.add-btn{padding:10px}
+.benefits{grid-template-columns:1fr}
+.benefit{border-right:0;border-bottom:1px solid var(--line)}
+.newsletter{flex-direction:column;align-items:flex-start}
+.footer-top{flex-direction:column}
+.footer-links{justify-content:space-between;gap:15px}
+.footer-bottom{flex-direction:column;gap:10px}
+#adminModal .modal-box.wide{padding:15px 4%}
+#adminModal .admin-layout{grid-template-columns:1fr}
+#adminModal .admin-sidebar{position:sticky;top:65px;z-index:4;display:flex;overflow-x:auto}
+#adminModal .admin-sidebar button{min-width:100px}
+.admin-stats{grid-template-columns:1fr 1fr}
+.admin-content{overflow-x:auto}
+.modal-box{padding:22px}
+}
+</style>
+</head>
+<body>
+
+<div class="announcement">FREE SHIPPING ON ORDERS ABOVE ₹999 · PRAGO 2026</div>
+
+<header>
+<a href="#" class="logo"><img src="images/PRAGO logo black.png" alt="PRAGO"></a>
+<nav id="nav">
+<a href="#shop">Shop</a><a href="#story">Our story</a><a href="#benefits">Why PRAGO</a>
+</nav>
+<div class="header-right">
+<button class="menu-btn" id="menuBtn">MENU</button>
+<button id="loginBtn">LOGIN</button>
+<button id="profileBtn" class="hidden">ACCOUNT</button>
+<button id="cartBtn">BAG <span class="cart-count" id="cartCount">0</span></button>
+</div>
+</header>
+
+<main>
+<section class="hero">
+<div class="hero-content">
+<img src="https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1800&q=85" alt="Streetwear">
+<div class="hero-text">
+<div class="eyebrow">THE EVERYDAY ELEVATION / EST. 2026</div>
+<h1>RISE ABOVE<br>ORDINARY.</h1>
+<p>Made for open roads, late nights and everything in between. Find your own altitude with PRAGO.</p>
+<a href="#shop" class="button">EXPLORE COLLECTION ↗</a>
+</div>
+</div>
+</section>
+<div class="ticker">OWN YOUR ALTITUDE <span>✳</span> BUILT FOR EVERYDAY <span>✳</span> RISE ABOVE ORDINARY</div>
+<section class="section" id="shop">
+<div class="section-heading"><div><div class="small-title">THE FIRST DROP / 01</div><h2>Wear your way.</h2></div></div>
+<div class="filters" id="filters"></div>
+<div class="products" id="products"></div>
+<div class="benefits" id="benefits">
+<div class="benefit"><h3>01 / Comfort first</h3><p>Easy silhouettes and soft everyday feel, made to move with you.</p></div>
+<div class="benefit"><h3>02 / Less noise</h3><p>Thoughtful designs. Clean details. No need to shout to stand out.</p></div>
+<div class="benefit"><h3>03 / Find your altitude</h3><p>Inspired by the outdoors and the mindset to keep moving forward.</p></div>
+</div>
+</section>
+<section class="story" id="story">
+<img src="https://images.unsplash.com/photo-1506629905607-d9c297d7e4b4?auto=format&fit=crop&w=1200&q=85" alt="Streetwear">
+<div class="story-text"><div class="small-title">A LITTLE ABOUT US</div><h2>Not here to fit in.</h2><p>PRAGO is built around a simple idea: your style should feel like you. Inspired by the outdoors and made for everyday life, we're here for people who choose their own path.</p></div>
+</section>
+<section class="newsletter">
+<div><div class="small-title">STAY IN THE LOOP</div><h2>Good things<br>are on the way.</h2><p>Get first access to new drops and updates.</p></div>
+<form class="signup" id="signupForm"><input type="email" placeholder="Your email address" required><button type="submit">SIGN ME UP ↗</button></form>
+</section>
+</main>
+
+<footer>
+<div class="footer-top">
+<div class="footer-brand"><a href="#" class="logo"><img src="images/PRAGO logo black.png" alt="PRAGO"></a><p>Rise above ordinary. Everyday streetwear for your own kind of journey.</p></div>
+<div class="footer-links"><div><b>EXPLORE</b><a href="#shop">Shop all</a><a href="#story">Our story</a></div><div><b>CONNECT</b><a href="mailto:hello@prago.in">Contact</a><a href="#" id="adminLink">Admin login</a></div></div>
+</div>
+<div class="footer-bottom"><span>© 2026 PRAGO. ALL RIGHTS RESERVED.</span><span>MADE TO MOVE. BUILT TO LAST.</span></div>
+</footer>
+
+<!-- LOGIN -->
+<div class="modal" id="loginModal"><div class="modal-box">
+<div class="modal-head"><h3>Welcome to PRAGO.</h3><button class="close" data-close="loginModal">×</button></div>
+<div id="loginStep1">
+<div class="field"><label>YOUR NAME</label><input id="userName" placeholder="Enter your full name"></div>
+<div class="field"><label>EMAIL ADDRESS</label><input id="userEmail" type="email" placeholder="Enter your email"></div>
+<button class="button full" id="sendOtp">CONTINUE WITH EMAIL ↗</button>
+<p class="note">Demo login: An OTP will be shown on screen. No real email is sent.</p>
+</div>
+<div id="loginStep2" class="hidden"><p class="note">Enter the demo OTP displayed below.</p><div class="demo-code" id="demoOtp">123456</div><div class="field"><label>ENTER OTP</label><input id="otpInput" inputmode="numeric" maxlength="6" placeholder="6-digit OTP"></div><button class="button full" id="verifyOtp">VERIFY & LOGIN ↗</button></div>
+<p class="error" id="loginError"></p>
+</div></div>
+
+<!-- PROFILE -->
+<div class="modal" id="profileModal"><div class="modal-box">
+<div class="modal-head"><h3>My account</h3><button class="close" data-close="profileModal">×</button></div>
+<div class="profile-info"><h3 id="profileName">Customer</h3><p id="profileEmail"></p></div>
+<h3 style="font:600 18px 'Space Grotesk'">My orders</h3>
+<div id="myOrders"></div><button class="button full" id="logoutBtn">LOGOUT</button>
+</div></div>
+
+<!-- PRODUCT DETAILS -->
+<div class="modal" id="detailModal"><div class="modal-box wide">
+<div class="modal-head"><h3>Product details</h3><button class="close" data-close="detailModal">×</button></div>
+<div id="detailContent"></div>
+</div></div>
+
+<!-- ADMIN LOGIN -->
+<div class="modal" id="adminLoginModal"><div class="modal-box">
+<div class="modal-head"><h3>PRAGO Admin</h3><button class="close" data-close="adminLoginModal">×</button></div>
+<div class="field"><label>ADMIN EMAIL</label><input id="adminEmail" type="email" placeholder="Admin email"></div>
+<div class="field"><label>PASSWORD</label><input id="adminPassword" type="password" placeholder="Password"></div>
+<button class="button full" id="adminLoginSubmit">ADMIN LOGIN ↗</button>
+<p class="note">Demo: admin@prago.in / prago123</p><p class="error" id="adminError"></p>
+</div></div>
+
+<!-- ADMIN DASHBOARD -->
+<div class="modal" id="adminModal"><div class="modal-box wide">
+<div class="modal-head"><h3>PRAGO Dashboard</h3><button class="close" id="adminClose">×</button></div>
+<div class="admin-layout">
+<aside class="admin-sidebar">
+<button class="active" data-admin-tab="overview">Overview</button><button data-admin-tab="products">Products</button><button data-admin-tab="orders">Orders</button><button data-admin-tab="add">Add product</button><button id="adminLogout">Logout</button>
+</aside>
+<div class="admin-content">
+<div id="adminOverview"><div class="admin-stats">
+<div class="stat"><small>TOTAL PRODUCTS</small><h3 id="statProducts">0</h3></div>
+<div class="stat"><small>TOTAL ORDERS</small><h3 id="statOrders">0</h3></div>
+<div class="stat"><small>REGISTERED USERS</small><h3 id="statUsers">0</h3></div>
+</div><h3 style="font:600 17px 'Space Grotesk'">Welcome to your store.</h3><p class="note">Manage your products and view customer orders here.</p></div>
+<div id="adminProducts" class="hidden"><h3 style="font:600 19px 'Space Grotesk';margin-bottom:15px">Manage products</h3><div id="adminProductList"></div></div>
+<div id="adminOrders" class="hidden"><h3 style="font:600 19px 'Space Grotesk';margin-bottom:15px">Customer orders</h3><div id="adminOrderList"></div></div>
+<div id="adminAdd" class="hidden">
+<h3 style="font:600 19px 'Space Grotesk';margin-bottom:15px" id="formTitle">Add new product</h3>
+<form id="productForm">
+<input type="hidden" id="editId">
+<div class="field"><label>PRODUCT NAME</label><input id="pName" required placeholder="Product name"></div>
+<div class="field"><label>PRICE (₹)</label><input id="pPrice" type="number" min="1" required placeholder="699"></div>
+<div class="field"><label>CATEGORY</label><select id="pCategory"><option>Graphic</option><option>Oversized</option><option>Essential</option><option>Gym</option><option>Travel</option><option>Other</option></select></div>
+<div class="field"><label>PRODUCT IMAGE URL (OPTIONAL)</label><input id="pImage" placeholder="Paste image URL here"></div>
+<div class="field"><label>OR UPLOAD IMAGE FROM YOUR DEVICE</label><div class="upload-box">
+<input id="pImageFile" type="file" accept="image/png,image/jpeg,image/webp">
+<p class="upload-help">PNG, JPG or WEBP · Maximum original file size: 5 MB</p>
+<img id="imagePreview" class="upload-preview hidden" src="" alt="Product image preview">
+<button type="button" class="action danger hidden" id="removeImage">REMOVE IMAGE</button>
+</div></div>
+<div class="field"><label>DESCRIPTION</label><textarea id="pDescription" placeholder="Product description"></textarea></div>
+<div class="field"><label>AVAILABLE SIZES</label><input id="pSizes" value="S,M,L,XL"></div>
+<div class="field"><label>PRODUCT LABEL</label><input id="pTag" placeholder="NEW DROP"></div>
+<button class="button full" type="submit" id="saveProduct">SAVE PRODUCT</button>
+<button class="primary full hidden" type="button" id="cancelEdit" style="margin-top:10px">CANCEL EDIT</button>
+</form>
+</div>
+</div></div>
+</div></div>
+
+<!-- DELIVERY ADDRESS -->
+<div class="modal" id="addressModal"><div class="modal-box">
+<div class="modal-head"><h3>Delivery address</h3><button class="close" data-close="addressModal">×</button></div>
+<form id="addressForm">
+<div class="field"><label>FULL NAME</label><input id="addressName" required placeholder="Your full name"></div>
+<div class="field"><label>MOBILE NUMBER</label><input id="addressPhone" type="tel" required pattern="[0-9]{10}" maxlength="10" placeholder="10-digit mobile number"></div>
+<div class="field"><label>HOUSE / FLAT / BUILDING</label><input id="addressHouse" required placeholder="House or flat number"></div>
+<div class="field"><label>STREET / AREA</label><input id="addressStreet" required placeholder="Street and area"></div>
+<div class="field"><label>CITY</label><input id="addressCity" required placeholder="City"></div>
+<div class="field"><label>STATE</label><input id="addressState" required placeholder="State"></div>
+<div class="field"><label>PINCODE</label><input id="addressPin" required inputmode="numeric" pattern="[0-9]{6}" maxlength="6" placeholder="6-digit pincode"></div>
+<div class="field"><label>LANDMARK (OPTIONAL)</label><input id="addressLandmark" placeholder="Nearby landmark"></div>
+<button class="button full" type="submit">CONTINUE ↗</button>
+</form>
+</div></div>
+
+<!-- PAYMENT -->
+<div class="modal" id="paymentModal"><div class="modal-box">
+<div class="modal-head"><h3>Payment</h3><button class="close" data-close="paymentModal">×</button></div>
+<div class="checkout-summary"><p>ORDER TOTAL</p><h2 id="paymentTotal">₹0</h2><p id="paymentAddress"></p></div>
+<h4 style="font:600 15px 'Space Grotesk';margin:20px 0 10px">SELECT PAYMENT METHOD</h4>
+<label class="payment-option"><input type="radio" name="paymentMethod" value="COD" checked><span><strong>Cash on Delivery</strong><small>Pay when your order arrives.</small></span></label>
+<label class="payment-option"><input type="radio" name="paymentMethod" value="ONLINE"><span><strong>Online Payment</strong><small>UPI, cards and net banking (gateway required).</small></span></label>
+<p class="error" id="paymentError"></p>
+<button class="button full" id="placeOrder">PLACE ORDER ↗</button>
+<p class="note">Online payment will be available once a payment gateway is connected.</p>
+</div></div>
+
+<!-- ORDER SUCCESS -->
+<div class="modal" id="successModal"><div class="modal-box">
+<div class="success-content">
+<div class="success-icon">✓</div>
+<div class="small-title">THANK YOU FOR SHOPPING WITH PRAGO</div>
+<h2>Order placed!</h2><p>Your order has been successfully placed.</p>
+<div class="checkout-summary" style="text-align:left">
+<p>ORDER ID: <b id="successOrderId"></b></p><p>TOTAL: <b id="successTotal"></b></p><p>PAYMENT: <b id="successPayment"></b></p><p>STATUS: <b>Order confirmed</b></p>
+</div>
+<div class="address-text" id="successAddress"></div>
+<button class="button full" id="continueShopping">CONTINUE SHOPPING ↗</button>
+</div>
+</div></div>
+
+<!-- CART -->
+<div class="cart-drawer" id="cartDrawer">
+<div class="overlay" id="cartOverlay"></div>
+<aside class="cart-panel">
+<div class="cart-header"><h3>Your bag</h3><button class="close" id="closeCart">×</button></div>
+<div class="cart-items" id="cartItems"></div>
+<div class="cart-total"><div class="total-line"><span>Subtotal</span><span id="cartTotal">₹0</span></div><button class="button full" id="checkout">PROCEED TO CHECKOUT ↗</button></div>
+</aside>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>"₹"+Number(n).toLocaleString("en-IN");
+
+const DEFAULT_PRODUCTS=[
+{id:1,name:"Altitude Graphic Tee",price:699,category:"Graphic",tag:"BESTSELLER",color:"Washed Black",image:"https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=800&q=85",description:"A relaxed graphic tee for everyday adventures. Designed for comfort and effortless streetwear styling.",sizes:["S","M","L","XL"]},
+{id:2,name:"Everyday Oversized Tee",price:649,category:"Oversized",tag:"NEW DROP",color:"Off White",image:"https://images.unsplash.com/photo-1527719327859-c6ce80353573?auto=format&fit=crop&w=800&q=85",description:"An oversized everyday essential with a relaxed silhouette and minimal styling.",sizes:["S","M","L","XL"]},
+{id:3,name:"Beyond The Peaks Tee",price:749,category:"Graphic",tag:"LIMITED",color:"Stone",image:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=85",description:"Inspired by mountain journeys and the spirit of exploring beyond limits.",sizes:["S","M","L","XL"]},
+{id:4,name:"Core Essential Tee",price:599,category:"Essential",tag:"EVERYDAY",color:"Charcoal",image:"https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=800&q=85",description:"A clean and versatile essential for your daily wardrobe.",sizes:["S","M","L","XL"]}
+];
+
+function load(key,fallback){try{const data=localStorage.getItem(key);return data===null?fallback:JSON.parse(data)}catch(e){return fallback}}
+function save(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){toast("Browser storage is full. Try a smaller image.");return false}}
+
+let products=load("prago_products",DEFAULT_PRODUCTS);
+let cart=[];
+let currentUser=load("prago_user",null);
+let orders=load("prago_orders",[]);
+let users=load("prago_users",[]);
+let adminLoggedIn=false;
+let selectedProduct=null;
+let selectedSize="M";
+let loginDraft=null;
+let uploadedImageData="";
+let deliveryAddress=null;
+let pendingCheckout=false;
+
+function toast(message){$("toast").textContent=message;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2300)}
+function safe(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function openModal(id){$(id).classList.add("open")}
+function closeModal(id){
+$(id).classList.remove("open");
+if(id==="loginModal"&&pendingCheckout&&!currentUser)pendingCheckout=false;
+}
+
+document.querySelectorAll("[data-close]").forEach(btn=>btn.onclick=()=>closeModal(btn.dataset.close));
+document.querySelectorAll(".modal").forEach(modal=>{
+modal.addEventListener("click",e=>{
+if(e.target===modal&&modal.id!=="adminModal")closeModal(modal.id);
+});
+});
+
+// LOGIN
+function updateAccountButton(){
+$("loginBtn").classList.toggle("hidden",!!currentUser);
+$("profileBtn").classList.toggle("hidden",!currentUser);
+}
+$("loginBtn").onclick=()=>{
+$("loginStep1").classList.remove("hidden");
+$("loginStep2").classList.add("hidden");
+$("loginError").textContent="";
+$("otpInput").value="";
+loginDraft=null;
+openModal("loginModal");
+};
+$("sendOtp").onclick=()=>{
+const name=$("userName").value.trim();
+const email=$("userEmail").value.trim();
+if(name.length<2||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+$("loginError").textContent="Please enter a valid name and email.";return;
+}
+loginDraft={name,email};
+$("loginStep1").classList.add("hidden");
+$("loginStep2").classList.remove("hidden");
+$("demoOtp").textContent="123456";
+$("loginError").textContent="";
+};
+$("verifyOtp").onclick=()=>{
+if(!loginDraft){$("loginError").textContent="Please start login again.";return}
+if($("otpInput").value.trim()!=="123456"){$("loginError").textContent="Incorrect OTP. Try 123456.";return}
+currentUser={name:loginDraft.name,email:loginDraft.email};
+if(!users.some(u=>u.email.toLowerCase()===currentUser.email.toLowerCase())){users.push(currentUser);save("prago_users",users)}
+save("prago_user",currentUser);
+updateAccountButton();
+$("otpInput").value="";
+loginDraft=null;
+closeModal("loginModal");
+toast("Welcome to PRAGO, "+currentUser.name+"!");
+if(pendingCheckout){pendingCheckout=false;openPayment()}
+};
+
+$("profileBtn").onclick=showProfile;
+function formatAddress(a){
+if(!a)return "Not provided";
+return [a.name,a.phone,a.house,a.street,a.city,a.state,a.pin,a.landmark].filter(Boolean).join(", ");
+}
+function showProfile(){
+if(!currentUser)return;
+$("profileName").textContent=currentUser.name;
+$("profileEmail").textContent=currentUser.email;
+const mine=orders.filter(o=>(o.email||"").toLowerCase()===currentUser.email.toLowerCase());
+$("myOrders").innerHTML=mine.length?mine.slice().reverse().map(o=>`
+<div class="order-card">
+<h4>Order #${safe(o.id)}</h4>
+<p>${safe((o.items||[]).map(i=>i.name+" × "+i.qty+" (Size "+i.size+")").join(", "))}</p>
+<p>Total: <b>${money(o.total)}</b></p>
+<p>Payment: ${safe(o.paymentMethod||"Not specified")} · ${safe(o.paymentStatus||"Not specified")}</p>
+<p>Delivery address: ${safe(formatAddress(o.address))}</p>
+<p>${safe(o.date)}</p><span class="status">${safe(o.status)}</span>
+</div>`).join(""):`<p class="note">You haven't placed any orders yet.</p>`;
+openModal("profileModal");
+}
+$("logoutBtn").onclick=()=>{
+currentUser=null;save("prago_user",null);updateAccountButton();closeModal("profileModal");toast("You have logged out.");
+};
+
+// PRODUCTS
+let activeCategory="All";
+function renderFilters(){
+const categories=["All",...new Set(products.map(p=>p.category))];
+$("filters").innerHTML=categories.map(c=>`<button class="filter ${activeCategory===c?"active":""}" data-category="${safe(c)}">${safe(c==="All"?"All pieces":c)}</button>`).join("");
+}
+function renderProducts(){
+renderFilters();
+const list=products.filter(p=>activeCategory==="All"||p.category===activeCategory);
+$("products").innerHTML=list.length?list.map(p=>`
+<article class="product-card" onclick="showProduct(${Number(p.id)})">
+<div class="product-image"><img src="${safe(p.image)}" alt="${safe(p.name)}" loading="lazy"><span class="tag">${safe(p.tag||p.category)}</span><button class="add-btn" onclick="event.stopPropagation();quickAdd(${Number(p.id)})">QUICK ADD +</button></div>
+<div class="product-info"><div class="product-name">${safe(p.name)}</div><div class="product-meta"><span>${safe(p.category)}</span><span class="price">${money(p.price)}</span></div></div>
+</article>`).join(""):`<p>No products in this category yet.</p>`;
+}
+$("filters").onclick=e=>{
+const btn=e.target.closest("[data-category]");if(!btn)return;activeCategory=btn.dataset.category;renderProducts();
+};
+
+// PRODUCT DETAILS — CORRECTED FUNCTION
+window.showProduct=id=>{
+selectedProduct=products.find(p=>p.id===id);
+if(!selectedProduct)return;
+selectedSize=(selectedProduct.sizes||["S","M","L","XL"])[0];
+const p=selectedProduct;
+$("detailContent").innerHTML=`
+<div class="detail-layout">
+<img src="${safe(p.image)}" alt="${safe(p.name)}">
+<div class="detail-info">
+<div class="small-title">${safe(p.category)}</div>
+<h2>${safe(p.name)}</h2>
+<span class="price">${money(p.price)}</span>
+<p>${safe(p.description||"A PRAGO everyday essential.")}</p>
+<h4 style="font-size:11px;margin-top:20px">SELECT SIZE</h4>
+<div class="size-options">
+${(p.sizes||["S","M","L","XL"]).map(s=>`<button class="size-btn ${s===selectedSize?"active":""}" data-size="${safe(s)}">${safe(s)}</button>`).join("")}
+</div>
+<button class="button full" id="detailAdd">ADD TO BAG — ${money(p.price)}</button>
+</div>
+</div>`;
+$("detailContent").querySelectorAll("[data-size]").forEach(btn=>{
+btn.onclick=()=>{
+selectedSize=btn.dataset.size;
+$("detailContent").querySelectorAll("[data-size]").forEach(b=>b.classList.toggle("active",b===btn));
+};
+});
+$("detailAdd").onclick=()=>{addToCart(p.id,selectedSize);closeModal("detailModal")};
+openModal("detailModal");
+};
+window.quickAdd=id=>{
+const p=products.find(p=>p.id===id);
+if(p)addToCart(id,(p.sizes||["S","M","L","XL"])[0]);
+};
+
+// CART
+function addToCart(id,size){
+const p=products.find(p=>p.id===id);if(!p)return;
+const existing=cart.find(x=>x.id===id&&x.size===size);
+if(existing)existing.qty++;else cart.push({...p,size,qty:1});
+renderCart();toast("Added to your bag!");
+}
+function renderCart(){
+const count=cart.reduce((s,p)=>s+p.qty,0);
+const total=cart.reduce((s,p)=>s+p.price*p.qty,0);
+$("cartCount").textContent=count;
+$("cartTotal").textContent=money(total);
+$("cartItems").innerHTML=cart.length?cart.map(p=>`
+<div class="cart-item">
+<img src="${safe(p.image)}" alt="">
+<div><b>${safe(p.name)}</b><small>Size: ${safe(p.size)} · Qty: ${p.qty}</small><small>${money(p.price*p.qty)}</small></div>
+<button class="remove" onclick="removeCart(${Number(p.id)},'${safe(p.size)}')">Remove</button>
+</div>`).join(""):`<div class="empty">Your bag is empty.<br><br>Find your next favourite PRAGO piece.</div>`;
+}
+window.removeCart=(id,size)=>{cart=cart.filter(p=>!(p.id===id&&p.size===size));renderCart()};
+$("cartBtn").onclick=()=>$("cartDrawer").classList.add("open");
+$("closeCart").onclick=()=>$("cartDrawer").classList.remove("open");
+$("cartOverlay").onclick=()=>$("cartDrawer").classList.remove("open");
+
+// CHECKOUT
+function cartGrandTotal(){return cart.reduce((sum,p)=>sum+p.price*p.qty,0)}
+function openPayment(){
+if(!currentUser||!deliveryAddress||!cart.length)return;
+$("paymentTotal").textContent=money(cartGrandTotal());
+$("paymentAddress").textContent="Delivering to: "+formatAddress(deliveryAddress);
+$("paymentError").textContent="";
+document.querySelector('input[name="paymentMethod"][value="COD"]').checked=true;
+openModal("paymentModal");
+}
+$("checkout").onclick=()=>{
+if(!cart.length){toast("Your bag is empty.");return}
+$("cartDrawer").classList.remove("open");
+$("addressForm").reset();
+$("addressName").value=currentUser?.name||"";
+openModal("addressModal");
+};
+$("addressForm").onsubmit=e=>{
+e.preventDefault();
+deliveryAddress={
+name:$("addressName").value.trim(),
+phone:$("addressPhone").value.trim(),
+house:$("addressHouse").value.trim(),
+street:$("addressStreet").value.trim(),
+city:$("addressCity").value.trim(),
+state:$("addressState").value.trim(),
+pin:$("addressPin").value.trim(),
+landmark:$("addressLandmark").value.trim()
+};
+if(!/^[0-9]{10}$/.test(deliveryAddress.phone)){toast("Enter a valid 10-digit mobile number.");return}
+if(!/^[0-9]{6}$/.test(deliveryAddress.pin)){toast("Enter a valid 6-digit pincode.");return}
+closeModal("addressModal");
+if(!currentUser){
+pendingCheckout=true;
+$("userName").value=deliveryAddress.name;
+$("loginStep1").classList.remove("hidden");
+$("loginStep2").classList.add("hidden");
+$("loginError").textContent="";
+$("otpInput").value="";
+loginDraft=null;
+openModal("loginModal");
+toast("Please login to continue your order.");
+return;
+}
+openPayment();
+};
+$("placeOrder").onclick=()=>{
+const method=document.querySelector('input[name="paymentMethod"]:checked')?.value;
+if(method==="ONLINE"){
+$("paymentError").textContent="Online payment is not connected yet. Razorpay integration with a secure backend is required. No payment has been taken. Choose Cash on Delivery for this demo.";
+return;
+}
+if(!currentUser||!deliveryAddress||!cart.length){$("paymentError").textContent="Please complete checkout again.";return}
+const order={
+id:"PR"+Date.now().toString().slice(-8),
+email:currentUser.email,
+name:currentUser.name,
+phone:deliveryAddress.phone,
+address:{...deliveryAddress},
+items:cart.map(p=>({name:p.name,price:p.price,qty:p.qty,size:p.size})),
+total:cartGrandTotal(),
+paymentMethod:"Cash on Delivery",
+paymentStatus:"Pay on delivery",
+date:new Date().toLocaleString("en-IN"),
+status:"Confirmed"
+};
+const updatedOrders=[...orders,order];
+if(!save("prago_orders",updatedOrders))return;
+orders=updatedOrders;
+cart=[];
+renderCart();
+closeModal("paymentModal");
+$("successOrderId").textContent=order.id;
+$("successTotal").textContent=money(order.total);
+$("successPayment").textContent=order.paymentMethod;
+$("successAddress").innerHTML=`<b>DELIVERY ADDRESS</b><br>${safe(order.address.name)}<br>${safe(order.address.phone)}<br>${safe(order.address.house)}, ${safe(order.address.street)}<br>${safe(order.address.city)}, ${safe(order.address.state)} - ${safe(order.address.pin)}${order.address.landmark?"<br>Landmark: "+safe(order.address.landmark):""}`;
+renderAdmin();
+openModal("successModal");
+};
+$("continueShopping").onclick=()=>{
+closeModal("successModal");
+closeModal("addressModal");
+closeModal("paymentModal");
+closeModal("loginModal");
+deliveryAddress=null;
+pendingCheckout=false;
+window.scrollTo({top:0,behavior:"smooth"});
+toast("Thanks for shopping with PRAGO!");
+};
+
+// ADMIN LOGIN
+$("adminLink").onclick=e=>{e.preventDefault();openModal("adminLoginModal")};
+$("adminLoginSubmit").onclick=()=>{
+const email=$("adminEmail").value.trim(),password=$("adminPassword").value;
+if(email==="admin@prago.in"&&password==="prago123"){
+adminLoggedIn=true;closeModal("adminLoginModal");$("adminPassword").value="";openAdmin();
+}else $("adminError").textContent="Incorrect admin email or password.";
+};
+$("adminClose").onclick=()=>closeModal("adminModal");
+$("adminLogout").onclick=()=>{adminLoggedIn=false;closeModal("adminModal");toast("Admin logged out.")};
+
+// ADMIN DASHBOARD
+function openAdmin(){if(!adminLoggedIn)return;renderAdmin();switchAdminTab("overview");openModal("adminModal")}
+function switchAdminTab(tab){
+["overview","products","orders","add"].forEach(t=>$("admin"+t.charAt(0).toUpperCase()+t.slice(1)).classList.toggle("hidden",t!==tab));
+document.querySelectorAll("[data-admin-tab]").forEach(b=>b.classList.toggle("active",b.dataset.adminTab===tab));
+if(tab==="products")renderAdminProducts();
+if(tab==="orders")renderAdminOrders();
+if(tab==="overview")renderAdmin();
+if(tab==="add"&&!$("editId").value)resetProductForm();
+}
+document.querySelectorAll("[data-admin-tab]").forEach(btn=>btn.onclick=()=>switchAdminTab(btn.dataset.adminTab));
+function renderAdmin(){
+$("statProducts").textContent=products.length;
+$("statOrders").textContent=orders.length;
+$("statUsers").textContent=users.length;
+}
+
+// ADMIN PRODUCTS
+function renderAdminProducts(){
+$("adminProductList").innerHTML=products.length?`
+<table class="admin-table"><thead><tr><th>Product</th><th>Price</th><th>Category</th><th>Actions</th></tr></thead><tbody>
+${products.map(p=>`<tr><td><img src="${safe(p.image)}" alt=""> ${safe(p.name)}</td><td>${money(p.price)}</td><td>${safe(p.category)}</td><td><button class="action" onclick="editProduct(${Number(p.id)})">Edit</button><button class="action danger" onclick="deleteProduct(${Number(p.id)})">Delete</button></td></tr>`).join("")}
+</tbody></table>`:`<p class="note">No products available.</p>`;
+}
+
+// IMAGE UPLOAD
+function showImagePreview(src){$("imagePreview").src=src;$("imagePreview").classList.remove("hidden");$("removeImage").classList.remove("hidden")}
+function clearImagePreview(){uploadedImageData="";$("pImageFile").value="";$("imagePreview").src="";$("imagePreview").classList.add("hidden");$("removeImage").classList.add("hidden")}
+$("pImageFile").addEventListener("change",function(e){
+const file=e.target.files[0];if(!file)return;
+if(!["image/jpeg","image/png","image/webp"].includes(file.type)){toast("Please select a JPG, PNG or WEBP image.");this.value="";return}
+if(file.size>5*1024*1024){toast("Image must be smaller than 5 MB.");this.value="";return}
+const reader=new FileReader();
+reader.onload=event=>{
+const image=new Image();
+image.onload=()=>{
+const canvas=document.createElement("canvas"),maxWidth=1000,scale=Math.min(1,maxWidth/image.width);
+canvas.width=Math.round(image.width*scale);canvas.height=Math.round(image.height*scale);
+canvas.getContext("2d").drawImage(image,0,0,canvas.width,canvas.height);
+uploadedImageData=canvas.toDataURL("image/jpeg",0.78);
+$("pImage").value="";showImagePreview(uploadedImageData);toast("Image uploaded successfully!");
+};
+image.onerror=()=>toast("Could not load this image.");
+image.src=event.target.result;
+};
+reader.readAsDataURL(file);
+});
+$("pImage").addEventListener("input",function(){if(this.value.trim())clearImagePreview()});
+$("removeImage").onclick=()=>{clearImagePreview();$("pImage").value=""};
+
+// ADD AND EDIT PRODUCTS
+function resetProductForm(){
+$("productForm").reset();$("editId").value="";$("pSizes").value="S,M,L,XL";
+$("formTitle").textContent="Add new product";$("saveProduct").textContent="SAVE PRODUCT";
+$("cancelEdit").classList.add("hidden");clearImagePreview();
+}
+$("productForm").onsubmit=e=>{
+e.preventDefault();if(!adminLoggedIn)return;
+const id=$("editId").value;
+const existingProduct=id?products.find(p=>p.id===Number(id)):null;
+const image=uploadedImageData||$("pImage").value.trim()||(existingProduct?existingProduct.image:"");
+const product={
+id:id?Number(id):Date.now(),
+name:$("pName").value.trim(),
+price:Number($("pPrice").value),
+category:$("pCategory").value,
+image,
+description:$("pDescription").value.trim(),
+sizes:$("pSizes").value.split(",").map(s=>s.trim().toUpperCase()).filter(Boolean),
+tag:$("pTag").value.trim()||"NEW DROP"
+};
+if(!product.name||product.price<=0||!product.image){toast("Please complete the product details and add an image.");return}
+const oldProducts=products.slice();
+if(id)products=products.map(p=>p.id===Number(id)?product:p);else products.push(product);
+if(!save("prago_products",products)){products=oldProducts;return}
+resetProductForm();renderProducts();renderAdminProducts();renderAdmin();switchAdminTab("products");toast(id?"Product updated!":"New product added!");
+};
+window.editProduct=id=>{
+const p=products.find(p=>p.id===id);if(!p)return;
+$("editId").value=p.id;$("pName").value=p.name;$("pPrice").value=p.price;$("pCategory").value=p.category;
+$("pDescription").value=p.description||"";$("pSizes").value=(p.sizes||[]).join(",");$("pTag").value=p.tag||"";
+if(p.image&&p.image.startsWith("data:image/")){$("pImage").value="";uploadedImageData=p.image;showImagePreview(p.image)}
+else{$("pImage").value=p.image||"";clearImagePreview()}
+$("formTitle").textContent="Edit product";$("saveProduct").textContent="UPDATE PRODUCT";$("cancelEdit").classList.remove("hidden");switchAdminTab("add");
+};
+$("cancelEdit").onclick=()=>{resetProductForm();switchAdminTab("products")};
+window.deleteProduct=id=>{
+if(!confirm("Are you sure you want to delete this product?"))return;
+const oldProducts=products.slice();products=products.filter(p=>p.id!==id);
+if(!save("prago_products",products)){products=oldProducts;return}
+renderProducts();renderAdminProducts();renderAdmin();toast("Product deleted.");
+};
+
+// ADMIN ORDER MANAGEMENT
+function renderAdminOrders(){
+$("adminOrderList").innerHTML=orders.length?orders.slice().reverse().map(o=>`
+<div class="order-card">
+<h4>Order #${safe(o.id)}</h4>
+<p>Customer: ${safe(o.name)} (${safe(o.email)})</p>
+<p>${safe((o.items||[]).map(i=>i.name+" × "+i.qty+" (Size "+i.size+")").join(", "))}</p>
+<p>Total: <b>${money(o.total)}</b></p>
+<p>Payment: ${safe(o.paymentMethod||"Not specified")}</p>
+<p>Payment status: ${safe(o.paymentStatus||"Not specified")}</p>
+<p>Delivery address: ${safe(formatAddress(o.address))}</p>
+<p>${safe(o.date)}</p>
+<div class="field" style="margin-top:12px"><label>ORDER STATUS</label>
+<select onchange="updateOrderStatus('${safe(o.id)}',this.value)">
+${["Confirmed","Processing","Shipped","Delivered","Cancelled"].map(s=>`<option ${o.status===s?"selected":""}>${s}</option>`).join("")}
+</select></div>
+</div>`).join(""):`<p class="note">No customer orders yet.</p>`;
+}
+window.updateOrderStatus=(id,status)=>{
+orders=orders.map(o=>o.id===id?{...o,status}:o);
+save("prago_orders",orders);toast("Order status updated.");
+};
+
+// NEWSLETTER
+$("signupForm").onsubmit=e=>{e.preventDefault();toast("Thanks for joining PRAGO!");e.target.reset()};
+
+// MOBILE MENU
+$("menuBtn").onclick=()=>$("nav").classList.toggle("open");
+document.querySelectorAll("#nav a").forEach(a=>a.onclick=()=>$("nav").classList.remove("open"));
+
+// INITIALIZE
+updateAccountButton();
+renderProducts();
+renderCart();
+</script>
+</body>
+</html>
